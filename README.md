@@ -11,3 +11,17 @@
 <p align="center">
 <img width="376" alt="Screenshot 1404-01-26 at 11 02 48" src="https://github.com/user-attachments/assets/d40b997c-cd7f-46e5-9f87-937eb9b900b4" />
 </p>
+
+## الگوریتم multilateration
+
+برای محاسبه مکان با استفاده از فاصله های به دست آمده باید از الگوریتم multilateration استفاده کنیم. در واقع اگر y_i ها فاصله های اندازه‌گیری شده از Anchor شماره i ام باشد برای پیدا کردن نقطه بهینه x باید مسئله بهینه‌سازی زیر را حل کنیم:
+
+<p align="center">
+<img width="297" alt="Screenshot 1404-01-26 at 11 46 35" src="https://github.com/user-attachments/assets/b98d6a53-1f95-4ae4-ab9e-95457c24f550" />
+</p>
+
+تا به بهترین شکل بر فاصله های اندازه‌گیری شده منطبق شویم. 
+
+## کلیت روش انجام پروژه 
+
+ماژول های Anchor و ُش
