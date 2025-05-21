@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class MessageBus : MonoBehaviour
 
     private List<ScheduledMessage> pending = new List<ScheduledMessage>(); // Pending messages
     private float simulatedTime = 0f;  // Simulated time independent of Unity's frame timing
+    private static Random rand = new Random();
 
     // Structure to represent a message that will be delivered at a specific time
     class ScheduledMessage
@@ -29,11 +31,16 @@ public class MessageBus : MonoBehaviour
     }
 
     // Send message with simulated delay
-    public void SendMessageDelayed(GameObject sender, GameObject receiver)
+    public void SendMessageDelayed(GameObject sender, GameObject receiver, float antennaDelayMean, float antennaDelayStd)
     {
         float distance = Vector3.Distance(sender.transform.position, receiver.transform.position);
         float delay = distance / SPEED_OF_LIGHT;  // Calculate delay based on speed of light
-        float deliveryTime = simulatedTime + delay;  // When the message will be delivered in the simulation time
+        double u1 = 1.0 - rand.NextDouble();
+        double u2 = 1.0 - rand.NextDouble();
+        double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+        float antennaDelay = randStdNormal * antennaDelayStd + antennaDelayMean;
+        float deliveryTime = simulatedTime + delay + antennaDelay;  // When the message will be delivered in the simulation time
+        
 
         var message = new MessageData(sender, receiver, simulatedTime);  // The message carries the simulated send time
         pending.Add(new ScheduledMessage { data = message, deliveryTime = deliveryTime });
